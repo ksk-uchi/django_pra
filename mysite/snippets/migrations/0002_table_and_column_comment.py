@@ -610,9 +610,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="snippet",
             name="linenos",
-            field=models.BooleanField(
-                db_comment="行番号表示 true:表示/false:非表示", default=False
-            ),
+            field=models.BooleanField(db_comment="行番号表示 true:表示/false:非表示", default=False),
         ),
         migrations.AlterField(
             model_name="snippet",
@@ -676,8 +674,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="snippet",
             name="title",
-            field=models.CharField(
-                blank=True, db_comment="タイトル", default="", max_length=100
-            ),
+            field=models.CharField(blank=True, db_comment="タイトル", default="", max_length=100),
         ),
     ]
