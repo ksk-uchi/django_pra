@@ -1,4 +1,5 @@
 # Exclude a variety of commonly ignored directories.
+force-exclude = true
 exclude = [
     ".bzr",
     ".direnv",
@@ -21,6 +22,7 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
+    "migrations",
 ]
 
 # Same as Black.

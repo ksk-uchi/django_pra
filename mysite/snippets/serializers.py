@@ -1,12 +1,21 @@
+from django.contrib.auth.models import User
+from pygments.lexers import get_all_lexers
+from pygments.styles import get_all_styles
 from rest_framework import serializers
 
 from .models import Snippet
 
+LEXERS = [item for item in get_all_lexers() if item[1]]
+LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
+STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
+
 
 class SnippetSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source="owner.username")
+
     class Meta:
         model = Snippet
-        fields = ["id", "title", "code", "linenos", "language", "style"]
+        fields = ["id", "title", "code", "linenos", "language", "style", "owner"]
 
 
 # class SnippetSerializer(serializers.Serializer):
@@ -34,3 +43,11 @@ class SnippetSerializer(serializers.ModelSerializer):
 #         instance.style = validated_data.get('style', instance.style)
 #         instance.save()
 #         return instance
+
+
+class UserSerializer(serializers.ModelSerializer):
+    snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "snippets"]
